@@ -43,3 +43,74 @@ void GameRules_Text()
                  "последнюю спичку."
               << "\n";
 }
+
+void Game(int PILE)
+{
+    int cash = PILE;
+    int comp = 1;
+
+    clear_cosole();
+
+    std::cout << "\n Игра 100 спичек.\n _______________________________ \n "
+                 "Выберите режим игры: \n 1. Игра с компьютером \n 2. Правила "
+                 "игры \n 3. Выход \n _______________________________ \n";
+
+    InputUserNumber(GAME_MODE, "Выберите пункт меню введя ЧИСЛО от 1 до 3 !");
+
+    switch (GAME_MODE) {
+    case 1:
+
+        clear_cosole();
+
+        std::cout << " Игра с компьютером \n\n";
+        std::cout << " Осталось: " << cash << "\n";
+
+        while (1) {
+            comp = 1;
+
+            // ход компьютера:
+            while ((cash - comp) % MOD)
+                ++comp;
+            if (cash == comp) {
+                break;
+            }
+            cash -= comp;
+
+            std::cout << " Ход компьютера: " << comp << "\n";
+            std::cout << "\n Осталось: " << cash << "\n";
+
+            // ход юзверя:
+            do {
+                std::cout << "Подумайте и сделайте ход "
+                          << "\n";
+                std::cout << " Игрок ( >= 1 и <= " << MOD - 1 << "): ";
+                InputUserNumber(USER, "Введите целое число от 1 до 10!");
+            }
+
+            while ((USER >= MOD) || (USER < 1));
+            cash -= USER;
+            std::cout << "\n Осталось: " << cash << "\n";
+        }
+
+        std::cout << " Компьютер: Я победил! забераю последние " << cash
+                  << " спичек.";
+
+        Pause();
+        Game(PILE);
+
+    case 2:
+
+        clear_cosole();
+        GameRules_Text();
+        Pause();
+        Game(PILE);
+
+    case 3:
+
+        exit(0);
+
+    default:
+
+        Game(PILE);
+    }
+}

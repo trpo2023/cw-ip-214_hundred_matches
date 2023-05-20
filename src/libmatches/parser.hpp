@@ -7,5 +7,6 @@ void GameRules_Text();
 int Pause();
 int InputUserNumber(int& User_Decision, const char* Bad_User_Decision);
 int clear_cosole();
+int PlayerNumber(int check);
 
 #endif

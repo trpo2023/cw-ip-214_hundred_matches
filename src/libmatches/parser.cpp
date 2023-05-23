@@ -1,12 +1,8 @@
-#include<iostream>
 #include <libmatches/parser.hpp>
+#include <iostream>
 #include <time.h>
 
-const int       MOD = 11;
-int             GAME_MODE;
-int             HARD_MODE;
-int             USER = 0;
-int             cash = 100;
+
 
 int        clear_cosole()
 {
@@ -25,6 +21,42 @@ int        InputUserNumber(int& User_Decision, const char* Bad_User_Decision)
         std::cout << Bad_User_Decision << std::endl;
     }
     return User_Decision;
+}
+
+int        Hard_II(int comp, int& cash, int MOD)
+{
+    comp = 1;    
+    while ((cash - comp) % MOD) ++comp;
+                        
+    if (cash == comp)
+    {
+        std::cout << " Компьютер: Я победил! забераю последние " << cash << " спичек.";
+        return 0;
+    }
+
+    cash -= comp;
+
+    std::cout << " Ход компьютера: " << comp << "\n";
+    std::cout << "\n Осталось: " << cash << "\n";
+    return 1;
+}
+
+int        Easy_II(int comp, int& cash)
+{
+    srand(time(0));
+    comp = rand() % 10 + 1;
+
+    if (cash <= 10)
+    {
+        std::cout << "\n Компьютер: Я победил! забераю последние " << cash << " спичек.";
+        return 0;
+    }
+
+    cash -= comp;
+
+    std::cout << " Ход компьютера: " << comp << "\n";
+    std::cout << "\n Осталось: " << cash << "\n";
+    return 1;
 }
 
 int        PlayerNumber(int check)
@@ -50,6 +82,9 @@ void       GameRules_Text()
 
 void       Game(int PILE) 
 {
+    int        USER = 0;
+    int        GAME_MODE;
+    int        HARD_MODE;
     int        check;
     int        cash = PILE;
     int        comp = 1;
@@ -82,47 +117,22 @@ void       Game(int PILE)
                 // ход компьютера:
                 if (HARD_MODE == 1)
                 {
-                    comp = 1;    
-                    while ((cash - comp) % MOD) ++comp;
-                        
-                    if (cash == comp)
-                    {
-                        std::cout << " Компьютер: Я победил! забераю последние " << cash << " спичек.";
-                        break;
-                    }
-
-                    cash -= comp;
-
-                    std::cout << " Ход компьютера: " << comp << "\n";
-                    std::cout << "\n Осталось: " << cash << "\n";
+                    if(Hard_II(comp, cash, 11) == 0) break;
                 }
 
                 if (HARD_MODE == 2)
                 {
-                    srand(time(0));
-                    comp = rand() % 10 + 1;
-
-                    if (cash <= 10)
-                    {
-                        std::cout << "\n Компьютер: Я победил! забераю последние " << cash << " спичек.";
-                        break;
-                    }
-
-                    cash -= comp;
-
-                    std::cout << " Ход компьютера: " << comp << "\n";
-                    std::cout << "\n Осталось: " << cash << "\n";
+                    if(Easy_II(comp, cash) == 0) break;
                 }
 
                 // ход юзверя:
                 do
                 {
-                    
                     std::cout << " \n**Подумайте и сделайте ход " << "\n";
-                    std::cout << " Игрок ( >= 1 и <= " << MOD - 1 << "): ";
+                    std::cout << " Игрок ( >= 1 и <= " << 11 - 1 << "): ";
                     InputUserNumber(USER, "Введите целое число от 1 до 10!");
                     
-                    if (cash <= USER)
+                    if (((USER > 0) && (USER < 11)) && (cash - USER == 0))
                     {
                         std::cout << "\n Игрок: Я победил! забераю последние " << USER << " спичек.";
                         HARD_MODE = 0;
@@ -131,7 +141,7 @@ void       Game(int PILE)
                     
                 }
 
-                while ((USER >= MOD) || (USER < 1));
+                while ((USER >= 11) || (USER < 1));
                 cash -= USER;
                 std::cout << "\n Осталось: " << cash << "\n";                                
             }
@@ -152,18 +162,18 @@ void       Game(int PILE)
                 {
                     std::cout << "\n Осталось: " << cash << "\n";
                     std::cout << "\n **Подумайте и сделайте ход " << "\n";
-                    std::cout << " Игрок "<< PlayerNumber(check) <<" ( >= 1 и <= " << MOD - 1 << "): ";
+                    std::cout << " Игрок "<< PlayerNumber(check) <<" ( >= 1 и <= " << 11 - 1 << "): ";
                     InputUserNumber(USER, "Введите целое число от 1 до 10!");
-                    check+=1;
-
-                    if (cash <= 10)
+                    
+                    if (((USER > 0) && (USER < 11)) && (cash - USER == 0))
                     {
                         break;
                     }
                 }
 
-                while ((USER >= MOD) || (USER < 1));
+                while ((USER >= 11) || (USER < 1));
                 cash -= USER;
+                check+=1;
                 //std::cout << "\n Осталось: " << cash << "\n";
             }
 

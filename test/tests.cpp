@@ -38,3 +38,45 @@ CTEST(suite4, player_numbers)
     int result= 0;
     ASSERT_NOT_EQUAL(expected,result);
 }
+CTEST(suite5, hard_computer)
+{
+    int comp = 1;
+    int cash = 100;
+    int MOD = 11;
+    int expected = Hard_II(comp, cash, MOD);
+    int result = 1;
+    ASSERT_EQUAL(expected,result);
+
+}
+
+CTEST(suite6, easy_computer)
+{
+    int comp = 1;
+    int cash = 100;
+    int expected = Easy_II(comp,cash);
+    int result = 1;
+    ASSERT_EQUAL(expected,result);
+
+}
+
+CTEST(suite7, hard_computer)
+{
+    int comp = 1;
+    int cash = 10;
+    int MOD = 11;
+    int expected = Hard_II(comp, cash, MOD);
+    int result = 1;
+    ASSERT_NOT_EQUAL(expected,result);
+
+}
+
+CTEST(suite8, easy_computer)
+{
+    int comp = 1;
+    int cash = 10;
+    int expected = Easy_II(comp,cash);
+    int result = 1;
+    ASSERT_NOT_EQUAL(expected,result);
+
+}
+

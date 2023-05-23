@@ -8,5 +8,7 @@ int Pause();
 int InputUserNumber(int& User_Decision, const char* Bad_User_Decision);
 int clear_cosole();
 int PlayerNumber(int check);
+int Hard_II(int comp, int& cash, int MOD);
+int Easy_II(int comp, int& cash);
 
 #endif

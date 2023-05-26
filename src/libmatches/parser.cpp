@@ -25,7 +25,9 @@ int Hard_II(int comp, int& cash, int MOD)
 {
     comp = 1;
     while ((cash - comp) % MOD)
+    {
         ++comp;
+    }
 
     if (cash == comp) {
         std::cout << " Компьютер: Я победил! забераю последние " << cash

@@ -24,8 +24,7 @@ int InputUserNumber(int& User_Decision, const char* Bad_User_Decision)
 int Hard_II(int comp, int& cash, int MOD)
 {
     comp = 1;
-    while ((cash - comp) % MOD)
-    {
+    while ((cash - comp) % MOD) {
         ++comp;
     }
 
